@@ -1,0 +1,47 @@
+#!/bin/sh
+
+KL_ARGS="  -D /var/opt/kaspersky/klms/postgresql -w --timeout 240 -m fast" # -o '-d 2'"
+KL_USER=kluser
+KL_PATH=/opt/kaspersky/klms/libexec/postgresql
+KL_BIN=$KL_PATH/postgres
+KL_CTL="$KL_PATH/pg_ctl ${KL_ARGS}"
+
+export PGHOST="/run/klms" 
+
+echo fixing perms for ${PGHOST}
+mkdir -p ${PGHOST} && chmod 770 ${PGHOST} && chown ${KL_USER}:${KL_USER}s ${PGHOST}
+
+suctl() {
+   su -c "${KL_CTL} ${command_args} $1" -s /bin/sh ${KL_USER}
+   return $?
+}
+
+case "$1" in
+    start)
+        echo "Starting"
+        cd ${KL_PATH}
+        suctl start
+        ;;
+
+    stop)
+        echo "Shutting down"
+        suctl stop || pkill -u ${KL_USER} postgresql
+        ;;
+
+    restart)
+        $0 stop
+        $0 start
+        ;;
+
+    status)
+        echo "Checking for service"
+        suctl status
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|status|try-restart|restart|force-reload}"
+        exit 1
+        ;;
+esac
+
+exit $?

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# should we send TERM to postgres to do clean shutdown ?
+
+# postgres
+/etc/init.d/klmsdb start
+
+# klms in foreground mode
+TMPDIR=/tmp/klms_filter
+KL_PATH="/opt/kaspersky/klms/libexec"
+#WATCHDOG="-t /var/log/kaspersky/klms/watchdog.log -l 1000"
+
+echo fixing perms for ${TMPDIR}
+mkdir -p ${TMPDIR} && chmod 777 ${TMPDIR} && chown kluser:klusers ${TMPDIR}
+
+export LANG=en_US.utf8
+export LC_ALL=en_US.utf8
+export KLMS_CONFIGURATION_MODE=FALSE
+
+chown -R kluser:klusers /var/opt/kaspersky/klms/backup /var/opt/kaspersky/klms/reports/custom /var/log/kaspersky/klms
+exec ${KL_PATH}/klms ${WATCHDOG} -c / -W /run/klms/klms_sock -p /run/klms/klms.pid -n 1 -e ${KL_PATH}/task_manager /run/klms/klms_sock 

@@ -1,0 +1,25 @@
+<root>
+    <tracerSettings>
+        <enable>1</enable>
+        <level>Warning</level>
+        <destination>Syslog</destination>
+        <rotationPeriod>NoRotation</rotationPeriod>
+        <rotationFileSize>100000000</rotationFileSize>
+        <maxFileCount>10</maxFileCount>
+        <facility>Mail</facility>
+    </tracerSettings>
+    <replyEmailAddress>klms@klms.example.com</replyEmailAddress>
+    <adminEmailAddresses>admin@example.com</adminEmailAddresses>
+    <ksnParticipationActivated>0</ksnParticipationActivated>
+    <ksnMode>Disable</ksnMode>
+    <proxySettings>
+        <enable>0</enable>
+        <serverAddress></serverAddress>
+        <port>8080</port>
+        <authenticationType>NotRequired</authenticationType>
+        <user></user>
+        <password></password>
+        <proxyBypassLocalAddresses>1</proxyBypassLocalAddresses>
+    </proxySettings>
+    <securityCenterClusterID>KLMS</securityCenterClusterID>
+</root>

@@ -1,0 +1,25 @@
+<root>
+    <updateCommonSettings>
+        <sourceType>KLServers</sourceType>
+        <customSources />
+        <useKlServersWhenUnavailable>1</useKlServersWhenUnavailable>
+        <connectionTimeout>10</connectionTimeout>
+    </updateCommonSettings>
+    <schedule>
+        <ruleType>Minutely</ruleType>
+        <startByTime>
+            <year>0</year>
+            <month>Unknown</month>
+            <day>0</day>
+            <hour>0</hour>
+            <min>0</min>
+            <sec>0</sec>
+            <dayOfMonth>0</dayOfMonth>
+            <dayOfWeek>Unknown</dayOfWeek>
+            <timePeriod>5</timePeriod>
+        </startByTime>
+        <randInterval>1</randInterval>
+        <execTimeLimit>0</execTimeLimit>
+        <runMissed>0</runMissed>
+    </schedule>
+</root>
